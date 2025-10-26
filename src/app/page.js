@@ -13,6 +13,8 @@ export default function Home() {
     projectType: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null) // 'success' or 'error'
 
   const services = [
     { title: 'Kitchen Remodeling', icon: '🔨', description: 'From concept to completion, we create kitchens that blend functionality with timeless design.' },
@@ -27,33 +29,82 @@ export default function Home() {
   ]
 
   const galleryImages = [
-    { src: '/images/gallery/287A5041-D9A6-45C7-8116-1C7B2DB7AC76_1_105_c.jpeg', category: 'commercial', title: 'Commercial Office Reception' },
-    { src: '/images/gallery/2A5E5FE0-1424-4A0B-9081-349B96D9042B_1_105_c.jpeg', category: 'outdoor', title: 'Outdoor Kitchen & Bar' },
+    // Bathroom (5 photos)
+    { src: '/images/gallery/1E5ECE87-8E0F-48F9-93E9-CDFA701DBADA_1_105_c.jpeg', category: 'bathroom', title: 'Bathroom Renovation Project' },
     { src: '/images/gallery/4BADC19B-8221-4B10-B670-A70328DC66CD_1_105_c.jpeg', category: 'bathroom', title: 'Luxury Bathroom with Marble Tile' },
-    { src: '/images/gallery/92FAC914-2753-4FF4-BCF8-664079B5F801_1_105_c.jpeg', category: 'exterior', title: 'Exterior Door Restoration' },
-    { src: '/images/gallery/61A2D407-06B4-45FE-8FF3-B931F6733348_1_105_c.jpeg', category: 'outdoor', title: 'Covered Patio with Custom Lighting' },
-    { src: '/images/gallery/B71EB8C8-0015-4324-AC50-B8C50872E8B2_1_105_c.jpeg', category: 'kitchen', title: 'Modern Kitchen Remodel' },
+    { src: '/images/gallery/806CC4F5-6AB2-4072-9A45-82244D800D3F_1_105_c.jpeg', category: 'bathroom', title: 'Modern Bathroom Design' },
+    { src: '/images/gallery/9E75AAE0-4FC1-41B2-88DE-647780B46BE4_1_105_c.jpeg', category: 'bathroom', title: 'Contemporary Bathroom Remodel' },
     { src: '/images/gallery/E20D0ED2-D956-4A27-85D2-3DEAB45A04AD_1_105_c.jpeg', category: 'bathroom', title: 'Custom Shower with Built-In Niches' },
-    { src: '/images/gallery/F8B77052-58B8-4FE7-8466-9E3ADCBD486C_1_105_c.jpeg', category: 'bathroom', title: 'Designer Bathroom with Statement Tile' },
+
+    // Commercial (2 photos)
+    { src: '/images/gallery/154A2073-654A-4A10-9D8C-8AA4AB5E8C55_1_105_c.jpeg', category: 'commercial', title: 'Commercial Property Renovation' },
+    { src: '/images/gallery/287A5041-D9A6-45C7-8116-1C7B2DB7AC76_1_105_c.jpeg', category: 'commercial', title: 'Commercial Office Reception' },
+
+    // Exterior (5 photos)
+    { src: '/images/gallery/4E03322A-7938-4CEE-9B5F-F674876A34E6_1_105_c.jpeg', category: 'exterior', title: 'Exterior Renovation Project' },
+    { src: '/images/gallery/51A869EF-440D-45B3-AF57-F4023F157520_1_105_c.jpeg', category: 'exterior', title: 'Building Facade Restoration' },
+    { src: '/images/gallery/92FAC914-2753-4FF4-BCF8-664079B5F801_1_105_c.jpeg', category: 'exterior', title: 'Exterior Door Restoration' },
+    { src: '/images/gallery/C6866648-030F-42E1-A50F-B91E29B698C1_1_105_c.jpeg', category: 'exterior', title: 'Exterior Paint & Repair' },
+    { src: '/images/gallery/D714C719-262E-4654-9F6B-89078D120C71_1_105_c.jpeg', category: 'exterior', title: 'Commercial Exterior Update' },
+
+    // Kitchen (3 photos)
+    { src: '/images/gallery/2A5E5FE0-1424-4A0B-9081-349B96D9042B_1_105_c.jpeg', category: 'kitchen', title: 'Outdoor Kitchen & Bar' },
+    { src: '/images/gallery/B71EB8C8-0015-4324-AC50-B8C50872E8B2_1_105_c.jpeg', category: 'kitchen', title: 'Modern Kitchen Remodel' },
+    { src: '/images/gallery/D116C4AE-5966-4939-8FB3-77200B73A40B_1_105_c.jpeg', category: 'kitchen', title: 'Contemporary Kitchen Design' },
+
+    // Outdoor (8 photos)
+    { src: '/images/gallery/038A67D8-B288-4A8D-B233-C4CCFB63C94F_1_105_c.jpeg', category: 'outdoor', title: 'Outdoor Living Space' },
+    { src: '/images/gallery/0EFAD158-0AD7-460A-91D3-45B453A9130D_1_105_c.jpeg', category: 'outdoor', title: 'Patio & Deck Construction' },
+    { src: '/images/gallery/2BA85F5B-2DD3-4A80-9B21-5F511AB1BE61_1_105_c.jpeg', category: 'outdoor', title: 'Outdoor Entertainment Area' },
+    { src: '/images/gallery/30C81671-8E79-4FBE-B14E-290BFD75ECE2_1_105_c.jpeg', category: 'outdoor', title: 'Custom Outdoor Feature' },
+    { src: '/images/gallery/61A2D407-06B4-45FE-8FF3-B931F6733348_1_105_c.jpeg', category: 'outdoor', title: 'Covered Patio with Custom Lighting' },
+    { src: '/images/gallery/AA61C0A6-DB0D-4D43-96A5-4AE82CC48AFD_1_105_c.jpeg', category: 'outdoor', title: 'Deck & Outdoor Renovation' },
+    { src: '/images/gallery/B1E6FF76-4F26-456D-ACC6-42C762127DCC_1_105_c.jpeg', category: 'outdoor', title: 'Outdoor Project Completion' },
+    { src: '/images/gallery/F8B77052-58B8-4FE7-8466-9E3ADCBD486C_1_105_c.jpeg', category: 'outdoor', title: 'Outdoor Design & Build' },
   ]
 
   const filteredImages = selectedCategory === 'all'
     ? galleryImages
     : galleryImages.filter(img => img.category === selectedCategory)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const subject = `Website Inquiry from ${formData.name}`
-    const body = `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Project Type: ${formData.projectType}
+    setIsSubmitting(true)
+    setSubmitStatus(null)
 
-Message:
-${formData.message}
-    `
-    window.location.href = `mailto:umanacorp@live.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          projectType: '',
+          message: '',
+        })
+        // Clear success message after 5 seconds
+        setTimeout(() => setSubmitStatus(null), 5000)
+      } else {
+        setSubmitStatus('error')
+        console.error('Form submission error:', data.error)
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      console.error('Network error:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e) => {
@@ -95,14 +146,8 @@ ${formData.message}
                 Expert home improvement and commercial renovation services across Monmouth, Ocean, Bergen, and Essex Counties.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <a href="tel:7326184087" className="btn-primary inline-flex items-center justify-center">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  (732) 618-4087
-                </a>
-                <a href="#contact" className="btn-secondary">
+              <div className="mb-8">
+                <a href="#contact" className="btn-primary inline-block px-8 py-4 text-lg">
                   Request Free Estimate
                 </a>
               </div>
@@ -174,11 +219,11 @@ ${formData.message}
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 md:py-28 bg-slate-50">
+      <section id="services" className="py-20 md:py-28 bg-umana-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="section-title">Our Services</h2>
-            <p className="section-subtitle mx-auto mt-4">
+            <h2 className="section-title text-white">Our Services</h2>
+            <p className="section-subtitle mx-auto mt-4 text-slate-300">
               If it involves improving your property, chances are we do it.
             </p>
           </div>
@@ -409,8 +454,52 @@ ${formData.message}
                     placeholder="Tell us about your project..."
                   ></textarea>
                 </div>
-                <button type="submit" className="btn-primary w-full">
-                  Send Message
+                {/* Success Message */}
+                {submitStatus === 'success' && (
+                  <div className="p-4 bg-green-50 border-2 border-green-500 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <div>
+                        <p className="font-semibold text-green-800">Message sent successfully!</p>
+                        <p className="text-sm text-green-700">We'll get back to you within 24 hours.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Error Message */}
+                {submitStatus === 'error' && (
+                  <div className="p-4 bg-red-50 border-2 border-red-500 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <svg className="w-6 h-6 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                      <div>
+                        <p className="font-semibold text-red-800">Failed to send message</p>
+                        <p className="text-sm text-red-700">Please try again or call us at (732) 618-4087</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </button>
               </form>
             </div>

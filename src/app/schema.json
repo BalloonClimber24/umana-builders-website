@@ -1,0 +1,110 @@
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "Umana Builders LLC",
+  "image": "https://umanabuilders.com/images/logo.png",
+  "description": "30 years of reliable home improvement and commercial renovation services in Monmouth, Ocean, Bergen, and Essex Counties. Licensed New Jersey contractor specializing in kitchens, bathrooms, facades, and more.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "NJ",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "40.2206",
+    "longitude": "-74.0597"
+  },
+  "url": "https://umanabuilders.com",
+  "telephone": "+17326184087",
+  "email": "umanacorp@live.com",
+  "priceRange": "$$",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Monmouth County",
+      "addressRegion": "NJ"
+    },
+    {
+      "@type": "City",
+      "name": "Ocean County",
+      "addressRegion": "NJ"
+    },
+    {
+      "@type": "City",
+      "name": "Bergen County",
+      "addressRegion": "NJ"
+    },
+    {
+      "@type": "City",
+      "name": "Essex County",
+      "addressRegion": "NJ"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Home Improvement & Renovation Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Kitchen Remodeling",
+          "description": "Complete kitchen renovation and remodeling services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Bathroom Renovation",
+          "description": "Bathroom remodeling and renovation services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Facade Repairs & Painting",
+          "description": "Exterior facade repair and painting services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Commercial Renovation",
+          "description": "Commercial property renovation and repair services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Interior Remodeling",
+          "description": "Complete interior remodeling services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Flooring Installation",
+          "description": "Professional flooring installation services"
+        }
+      }
+    ]
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "07:00",
+    "closes": "18:00"
+  },
+  "sameAs": []
+}
